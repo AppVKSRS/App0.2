@@ -16,6 +16,7 @@ namespace App0._2
         public LoginPage()
         {
             InitializeComponent();
+            EnterButton.Clicked += TextConmlited;
             UrlEnter.Background = Brush.White;
         }
         /// <summary>
@@ -48,6 +49,7 @@ namespace App0._2
         /// <returns>Коректна ли ссылка.</returns>
         private bool IsUrlCorrect(string url)
         {
+            if (url is null) return false;
             url = url.Trim();
             if (!LinkExist(url)) return false;
 
