@@ -16,6 +16,7 @@ namespace App0._2
         public LoginPage()
         {
             InitializeComponent();
+            UrlEnter.Background = Brush.White;
         }
         /// <summary>
         /// Обработчик введенной ссылки на профиль.
@@ -26,6 +27,7 @@ namespace App0._2
             if (IsUrlCorrect(text))
             {
                 UrlEnter.Background = Brush.White;
+                ErrorText.IsVisible = false;
                 string vkId = VkParser.GetId(text);
                 VkParser.ParseVKPage(vkId);
                 Navigation.PushAsync(new StatisticPage());

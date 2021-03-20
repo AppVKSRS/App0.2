@@ -10,28 +10,63 @@ using Xamarin.Forms.Xaml;
 namespace App0._2
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    
     public partial class StatisticPage : ContentPage
     {
-        string url = "https://sun9-34.userapi.com/impf/c853624/v853624041/83de7/4q6hzLRhHIQ.jpg?size=1080x1080&quality=96&sign=3d5bbbf91532c0d6b5dee499430b2caf&type=album";
+        List<string> Photos = VkParser.PhotoUploadUrl.Keys.ToList<string>();
+        //string url = "https://sun9-34.userapi.com/impf/c853624/v853624041/83de7/4q6hzLRhHIQ.jpg?size=1080x1080&quality=96&sign=3d5bbbf91532c0d6b5dee499430b2caf&type=album";
         public StatisticPage()
         {
             InitializeComponent();
-            for (int i = 0; i < 10; i++)
+            //ActivityIndicator loading = new ActivityIndicator() {IsRunning = true, IsVisible = true };
+
+            AddImages();
+            //loading.IsRunning = false;
+            //loading.IsVisible = false;
+
+        }
+
+        private void AddImages()
+        {
+            for (int i = 0; i< Photos.Count / 3 + Photos.Count % 3 % 2; i++)
             {
                 grid.RowSpacing = 1;
-                grid.RowDefinitions.Add(new RowDefinition() { Height = 150});
-                for (int j = 0; j < 3; j++)
+                grid.RowDefinitions.Add(new RowDefinition() { Height = 150 });
+                for (int j = 0; j < 3 && i*3+j<Photos.Count; j++)
                 {
-                    Image image = new Image();
-                    image.Source = new UriImageSource
+                    try
                     {
-                        CachingEnabled = true,
-                        CacheValidity = new System.TimeSpan(2, 0, 0, 0),
-                        Uri = new System.Uri(url)
-                    };
-                    grid.Children.Add(image, j, i);
+
+                        ImageButton image = new ImageButton()
+                        {
+                            Aspect = Aspect.AspectFill,
+                            Source = new UriImageSource
+                            {
+                                CachingEnabled = true,
+                                CacheValidity = new System.TimeSpan(2, 0, 0, 0),
+                                Uri = new System.Uri(VkParser.PhotoUploadUrl[Photos[i*3 + j]])
+
+                            }
+
+                        };
+                        image.Clicked += Image_Clicked;
+                        grid.Children.Add(image, j, i);
+                    }
+                    catch 
+                    {
+                        Photos.RemoveAt(j + 3*i);
+                        j--;
+                    }
                 }
+
             }
+        }
+        /// <summary>
+        ///  Обработка события нажатия на изображение - переход к статистики по фото.
+        /// </summary>
+        private void Image_Clicked(object sender, EventArgs e)
+        {
+            
         }
     }
 }
