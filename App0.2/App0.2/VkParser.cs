@@ -16,6 +16,8 @@ namespace App0._2
 
         public static Dictionary<string, int> PostComments { get; set; }
 
+        public static Dictionary<string, string> PhotoUploadUrl { get; set; }
+
         private static string token = "0dc70b17eb2e25297652821dd761e5747a98e2bba49a7dd7e6523c2eae8184643743c6f0bc4c749fdfec3";
 
         /// <summary>
@@ -81,6 +83,7 @@ namespace App0._2
                 // Выполняем запрос по адресу и получаем ответ в виде строки
                 string photoInfo = Get("https://api.vk.com/method/photos.getAll?v=5.52&owner_" + $"id={VKID}&access_token={token}&extended=1&count=200",
                     HttpStatusCode.OK);
+                //Console.WriteLine(photoInfo);
                 string photoComments = Get("https://api.vk.com/method/photos.getAllComments?v=5.52&owner_" + $"id={VKID}&access_token={token}&extended=1&count=100",
                     HttpStatusCode.Continue);
                 if (logs)
@@ -89,13 +92,14 @@ namespace App0._2
                 }
                 Dictionary<string, int> photosLikes = new Dictionary<string, int>();
                 Dictionary<string, int> photosReposts = new Dictionary<string, int>();
+                Dictionary<string, string> photoUploadUrl = new Dictionary<string, string>();
                 var parsedLIkesAndReposts = JObject.Parse(photoInfo);
                 foreach (var photo in parsedLIkesAndReposts["response"]["items"])
                 {
-                    //Console.WriteLine((string)photo["id"]);
-                    //Console.WriteLine((int)photo["likes"]["count"]);
+
                     photosLikes[(string)photo["id"]] = (int)photo["likes"]["count"];
                     photosReposts[(string)photo["id"]] = (int)photo["reposts"]["count"];
+                    photoUploadUrl[(string)photo["id"]] = (string)photo["photo_604"];
                 }
                 Dictionary<string, int> postComments = new Dictionary<string, int>();
                 var parsedComments = JObject.Parse(photoComments);
@@ -116,9 +120,10 @@ namespace App0._2
                 PhotosLikes = photosLikes;
                 PhotosReposts = photosReposts;
                 PostComments = postComments;
+                PhotoUploadUrl = photoUploadUrl;
 
                 Console.WriteLine("--------------");
-                foreach (var item in PhotosLikes)
+                foreach (var item in PhotoUploadUrl)
                 {
 
                     Console.WriteLine(item);
@@ -136,14 +141,6 @@ namespace App0._2
                     Console.WriteLine($"Invalid request for id {VKID}. Exception code {e.Message}");
                 }
             }
-        }
-        static void Main(string[] args)
-        {
-            //ParseVKPage("239108680");
-            string l = "https://vk.com/pasik2032";
-
-            string vkId = GetId(l);
-            ParseVKPage(vkId);
         }
 
     }
