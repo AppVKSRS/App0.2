@@ -42,10 +42,11 @@ namespace App0._2
                             Aspect = Aspect.AspectFill,
                             Source = new UriImageSource
                             {
+                                AutomationId = VkParser.PhotoUploadUrl[Photos[i * 3 + j]],
                                 CachingEnabled = true,
                                 CacheValidity = new System.TimeSpan(2, 0, 0, 0),
                                 Uri = new System.Uri(VkParser.PhotoUploadUrl[Photos[i*3 + j]])
-
+                                
                             }
 
                         };
@@ -66,7 +67,7 @@ namespace App0._2
         /// </summary>
         private void Image_Clicked(object sender, EventArgs e)
         {
-            
+           Navigation.PushAsync(new PhotoStatisticPage(((ImageButton)sender).Source.AutomationId));
         }
     }
 }
