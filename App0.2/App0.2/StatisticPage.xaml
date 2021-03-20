@@ -12,6 +12,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                
             </Grid>
         </ScrollView>
     </ContentPage.Content>

@@ -145,4 +145,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\BackImage.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Comments.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Like.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Reposts.jpg" />
+  </ItemGroup>
 </Project>

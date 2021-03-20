@@ -13,6 +13,7 @@ namespace App0._2
     public partial class PhotoStatisticPage : ContentPage
     {
         string Url;
+        string PhotoId;
         public PhotoStatisticPage(string url)
         {
             InitializeComponent();
@@ -23,7 +24,17 @@ namespace App0._2
                 CacheValidity = new System.TimeSpan(2, 0, 0, 0),
                 Uri = new System.Uri(Url)
             };
-            
+            PhotoId = VkParser.PhotoUploadUrl.Where(x => x.Value == url).FirstOrDefault().Key;
+            Likes.Text = VkParser.PhotosLikes[PhotoId].ToString();
+            try
+            {
+                Comments.Text = VkParser.PostComments[PhotoId].ToString();
+            }
+            catch
+            {
+                Comments.Text = "0";
+            }
+            Reposts.Text = VkParser.PhotosReposts[PhotoId].ToString();
         }
     }
 }
