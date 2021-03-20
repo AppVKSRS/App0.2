@@ -5,15 +5,26 @@
     BackgroundImageSource="BackImage.jpg">
     <ContentPage.Content>
         <ScrollView>
-            <Grid
+            <StackLayout>
+                <Button 
+                x:Name="StatisticButton"
+                Text="Показать статистику"
+                    BackgroundColor="#EC8B8B" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"
+                   
+                    />
+                <Grid
                 x:Name="grid">
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+               
                 
             </Grid>
+
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

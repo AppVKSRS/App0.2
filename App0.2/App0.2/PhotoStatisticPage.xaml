@@ -6,8 +6,9 @@
         <ScrollView>
             <StackLayout>
                 <Image
-                    
-                    x:Name="image" VerticalOptions="Start" BackgroundColor="#EC8B8B"                   
+                    x:Name="image" 
+                    VerticalOptions="Start"
+                    BackgroundColor="#EC8B8B"                   
                        />
                 <Grid RowSpacing="0"
                       x:Name="Likesgrid"
@@ -63,8 +64,9 @@
                         />
 
                 </Grid>
+                
             </StackLayout>
-            
+
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
