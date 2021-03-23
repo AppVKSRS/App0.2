@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +19,9 @@ namespace App0._2
         public static Dictionary<string, int> PostComments { get; set; }
 
         public static Dictionary<string, string> PhotoUploadUrl { get; set; }
+
+        // Словарь ссылка-объект с результатом машинного изучения.
+        public static Dictionary<string, ImageAnalysis> AIAniliseByUrl { get; set; }
 
         private static string token = "0dc70b17eb2e25297652821dd761e5747a98e2bba49a7dd7e6523c2eae8184643743c6f0bc4c749fdfec3";
 
@@ -93,14 +98,24 @@ namespace App0._2
                 Dictionary<string, int> photosLikes = new Dictionary<string, int>();
                 Dictionary<string, int> photosReposts = new Dictionary<string, int>();
                 Dictionary<string, string> photoUploadUrl = new Dictionary<string, string>();
+                Dictionary<string, ImageAnalysis> aIAniliseByUrl = new Dictionary<string, ImageAnalysis>();
                 var parsedLIkesAndReposts = JObject.Parse(photoInfo);
+                ComputerVisionClient AIclient = ImageAnaliser.Authenticate();
+                bool flag = true;
                 foreach (var photo in parsedLIkesAndReposts["response"]["items"])
                 {
 
                     photosLikes[(string)photo["id"]] = (int)photo["likes"]["count"];
                     photosReposts[(string)photo["id"]] = (int)photo["reposts"]["count"];
                     photoUploadUrl[(string)photo["id"]] = (string)photo["photo_604"];
+                    /*if (flag)
+                    {
+                        flag = false;*/
+                        
+                        //aIAniliseByUrl[(string)photo["photo_604"]] = ImageAnaliser.AnalyzeImageUrl(AIclient, (string)photo["photo_604"]); 
+                    //}
                 }
+
                 Dictionary<string, int> postComments = new Dictionary<string, int>();
                 var parsedComments = JObject.Parse(photoComments);
                 foreach (var post in parsedComments["response"]["items"])
@@ -121,7 +136,7 @@ namespace App0._2
                 PhotosReposts = photosReposts;
                 PostComments = postComments;
                 PhotoUploadUrl = photoUploadUrl;
-
+                AIAniliseByUrl = aIAniliseByUrl;
                 Console.WriteLine("--------------");
                 foreach (var item in PhotoUploadUrl)
                 {
