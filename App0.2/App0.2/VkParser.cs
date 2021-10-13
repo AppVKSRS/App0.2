@@ -23,7 +23,7 @@ namespace App0._2
         // Словарь ссылка-объект с результатом машинного изучения.
         public static Dictionary<string, ImageAnalysis> AIAniliseByUrl { get; set; }
 
-        private static string token = "0dc70b17eb2e25297652821dd761e5747a98e2bba49a7dd7e6523c2eae8184643743c6f0bc4c749fdfec3";
+        private static string token = "*";
 
         /// <summary>
         /// Получает ссылку на вк и вытаскивает id
