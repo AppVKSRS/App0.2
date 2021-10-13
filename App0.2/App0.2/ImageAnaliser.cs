@@ -15,7 +15,7 @@ namespace App0._2
     static class ImageAnaliser
     {
         // Add your Computer Vision subscription key and endpoint
-        static string subscriptionKey = "1e6b8acd0a6c44c2a81a2d0308f95377";
+        static string subscriptionKey = "*";
 
         static string endpoint = "https://diana.cognitiveservices.azure.com/";
 
